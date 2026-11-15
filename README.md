@@ -1,31 +1,44 @@
-# Phi đội không gian (Space Fleet Battle)
+# Phi Đội Không Gian (Space Fleet Battle)
 
-## 1. Giới thiệu
-Game chiến thuật "Phi đội không gian" chạy trên nền tảng Linux (CLI):
-- Giao thức truyền thông: TCP Socket.
-- Kiến trúc Server: I/O multiplexing với `select()`.
-- Kiến trúc Client: CLI đa luồng (`pthread`) - 1 luồng nhận dữ liệu, 1 luồng gửi/xử lý nhập liệu người dùng.
+## 1. Môi trường phát triển
+- Hệ điều hành: **Ubuntu 22.04 LTS / WSL**
+- Trình biên dịch: **gcc** (chuẩn gnu11)
+- Biên dịch flags: `-Wall -Wextra -g -pthread`
+- Thư viện: Chỉ sử dụng thư viện chuẩn C và POSIX (không dùng thư viện ngoài).
 
-## 2. Môi trường phát triển
-- Hệ điều hành: Linux / Ubuntu 22.04 LTS (WSL).
-- Trình biên dịch: `gcc` (flags: `-Wall -Wextra -g -pthread`).
-- Công cụ build: GNU Make.
+---
 
-## 3. Cấu trúc thư mục
-- `src/`: Mã nguồn của dự án (header, logic mạng, logger, client, server).
-- `logs/`: Lưu trữ các file log khi chạy ứng dụng.
-- `Makefile`: Kịch bản biên dịch và kiểm thử tự động.
+## 2. Cấu trúc thư mục
+- `src/`: Thư mục chứa toàn bộ mã nguồn (`.c`, `.h`).
+- `logs/`: Thư mục lưu trữ file log khi ứng dụng chạy.
+- `Makefile`: Script tự động hóa biên dịch, dọn dẹp và chạy kiểm thử.
 
-## 4. Hướng dẫn biên dịch & chạy
-- Biên dịch toàn bộ (Server & Client):
+---
+
+## 3. Hướng dẫn biên dịch
+- Biên dịch toàn bộ ứng dụng (server và client):
   ```bash
   make all
   ```
-- Biên dịch bài kiểm thử giao thức (Test Protocol):
+- Biên dịch và chạy bộ kiểm thử tự động (test_protocol, test_logger):
   ```bash
   make test
   ```
-- Dọn dẹp các file nhị phân và object files:
+- Dọn dẹp các file đối tượng (`.o`) và file thực thi:
   ```bash
   make clean
+  ```
+
+---
+
+## 4. Cách chạy dự kiến
+- Khởi chạy Server:
+  ```bash
+  ./server <port>
+  # Ví dụ: ./server 8080
+  ```
+- Khởi chạy Client:
+  ```bash
+  ./client <IP> <port>
+  # Ví dụ: ./client 127.0.0.1 8080
   ```

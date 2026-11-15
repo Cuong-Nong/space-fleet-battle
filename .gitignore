@@ -1,15 +1,18 @@
-# Biên dịch và Object files
+# Object files
 *.o
 src/*.o
+
+# Binaries / Executables
 server
 client
 test_protocol
+test_logger
 
-# Logs runtime
+# Log files
 logs/*.log
 !logs/.gitkeep
 
-# Editor & IDE configs
+# Editor & OS files
 .vscode/
 .idea/
 *.swp
