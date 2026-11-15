@@ -1,0 +1,16 @@
+# Biên dịch và Object files
+*.o
+src/*.o
+server
+client
+test_protocol
+
+# Logs runtime
+logs/*.log
+!logs/.gitkeep
+
+# Editor & IDE configs
+.vscode/
+.idea/
+*.swp
+*~
