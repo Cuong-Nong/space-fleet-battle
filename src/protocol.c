@@ -5,6 +5,33 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <stddef.h>
+#include <string.h>
+
+/*
+ * Khởi tạo dữ liệu cho một Packet.
+ * - command_type: Loại lệnh cần gán.
+ * - payload: Chuỗi dữ liệu (nếu NULL thì coi như rỗng "").
+ */
+void packet_set(Packet *pkt, int command_type, const char *payload) {
+    if (pkt == NULL) {
+        return;
+    }
+
+    pkt->header.command_type = command_type;
+
+    if (payload == NULL) {
+        pkt->header.payload_len = 0;
+        pkt->payload[0] = '\0';
+    } else {
+        size_t len = strlen(payload);
+        if (len > MAX_LEN) {
+            len = MAX_LEN;
+        }
+        memcpy(pkt->payload, payload, len);
+        pkt->payload[len] = '\0';
+        pkt->header.payload_len = (int32_t)len;
+    }
+}
 
 /*
  * Hàm phụ trợ: Gửi chính xác len byte dữ liệu qua socket.
